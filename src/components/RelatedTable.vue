@@ -1,4 +1,5 @@
 <template>
+    <!-- relation title -->
     <h4>{{ title }}</h4>
     <table v-if="node.records">
         <thead>
@@ -13,12 +14,14 @@
         <tbody>
             <template v-for="(item,index) in node.records" :key="index">
                 <tr data-bs-toggle="collapse" class="collapsed" :data-bs-target="'#collapse'+prevIndex+depth+index">
+                    <!-- render arrow only if the record has childs -->
                     <td><i v-if="!checkEmpty(item.kids)" class="arrow"></i></td>
                     <td v-for="(field,indexF) in item.data" :key="indexF">
                         {{field}}
                     </td>
                     <td><i class="deleteX" @click.prevent="deleteItem(index)"></i></td>
                 </tr>
+                <!-- render only if the record has childs -->
                 <template v-if="!checkEmpty(item.kids)">
                     <tr :id="'collapse'+prevIndex+depth+index" class="accordion-collapse collapse">
                         <td colspan=100 style="padding-right: 0">
@@ -51,7 +54,7 @@
         },
         methods: {
             deleteItem(index){
-                this.$props.node.records.splice(index,1);
+                this.deleteRow(this.$props.node.records,index);
             }
         }
     }

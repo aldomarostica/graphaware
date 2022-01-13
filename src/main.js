@@ -18,6 +18,9 @@ const globalMixin = {
                 }
             }
             return true;
+        },
+        deleteRow(recordSet,index){
+            recordSet.splice(index,1);
         }
     },
 }
