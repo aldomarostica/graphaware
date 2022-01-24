@@ -42,28 +42,29 @@
   </table>
 </template>
 
-<script>
-import RelatedTable from './components/RelatedTable.vue';
-import { mapState } from "vuex";
+<script lang="ts">
+  import { defineComponent } from 'vue';
+  import RelatedTable from './components/RelatedTable.vue';
+  import { mapState } from "vuex";
 
-export default {
-  name: 'App',
-  components: {
-    RelatedTable
-  },
-  created(){
-    this.$store.dispatch('getMyTableData');
-  },
-  computed: {
-    ...mapState([
-      'myTableData',
-      'loadKids',
-      'collapse',
-      'loading'
-    ])
-  }
+  export default defineComponent({
+    name: 'App',
+    components: {
+      RelatedTable
+    },
+    created(): void{
+      this.$store.dispatch('getMyTableData');
+    },
+    computed: {
+      ...mapState([
+        'myTableData',
+        'loadKids',
+        'collapse',
+        'loading'
+      ])
+    }
 
-}
+  })
 </script>
 
 <style>

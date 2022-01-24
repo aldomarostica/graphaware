@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const globalMixin = {
     methods: {
-        checkEmpty(obj){
-            for(let key in obj){
+        checkEmpty(obj: any ) : boolean{
+            for(const key in obj){
                 //if the value is 'object'
                 if(obj[key] instanceof Object === true){
                     if(this.checkEmpty(obj[key]) === false) return false;
@@ -19,9 +19,6 @@ const globalMixin = {
                 }
             }
             return true;
-        },
-        deleteRow(recordSet,index){
-            recordSet.splice(index,1);
         }
     },
 }
