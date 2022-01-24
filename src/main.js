@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import store from './store';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -25,4 +26,4 @@ const globalMixin = {
     },
 }
 
-createApp(App).mixin(globalMixin).mount('#app');
+createApp(App).use(store).mixin(globalMixin).mount('#app');
