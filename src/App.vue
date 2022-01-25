@@ -11,7 +11,7 @@
       </tr>
     </thead>
       <tbody>
-        <template v-for="item in myTableData" :key="'TR-'+item.uuid">
+        <template v-for="(item,index) in myTableData" :key="'TR-'+item.uuid">
           <tr v-bind:class="{'collapsed': !collapse[item.uuid] }">
             <!-- render arrow only if the record has childs -->
             <td @click="$store.dispatch('toggleExpand', item.uuid)">
@@ -24,7 +24,7 @@
             <td v-for="(field,keyF,indexF) in  item.data" :key="'RF-'+item.uuid+'_'+indexF">
               {{field}}
             </td>
-            <td><i class="deleteX" @click.prevent="$store.dispatch('deleteItem', item.uuid)"></i></td>
+            <td><i class="deleteX" @click.prevent="$store.dispatch('deleteItem',  {rootIndex: index , uuid: item.uuid })"></i></td>
           </tr>
           <!-- render only if the record has childs -->
           <tr :id="'collapse'+item.uuid" class="accordion-collapse collapse" v-bind:class="{ 'show': collapse[item.uuid] }" v-if="!checkEmpty(item.kids) && loadKids[item.uuid]">
@@ -34,6 +34,7 @@
                   :key="'RT-'+item.uuid+'_'+indexK"
                   :node="kids"
                   :title="key"
+                  :rootIndex="index"
                 />
             </td>
           </tr>
@@ -53,7 +54,7 @@
       RelatedTable
     },
     created(): void{
-      this.$store.dispatch('getMyTableData');
+      this.$store.dispatch('initMyTableData');
     },
     computed: {
       ...mapState([

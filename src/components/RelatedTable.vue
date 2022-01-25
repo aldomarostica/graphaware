@@ -25,7 +25,7 @@
                     <td v-for="(field,keyF,indexF) in item.data" :key="'RF-'+item.uuid+'_'+indexF">
                         {{field}}
                     </td>
-                    <td><i class="deleteX" @click.prevent="$store.dispatch('deleteItem', item.uuid)"></i></td>
+                    <td><i class="deleteX" @click.prevent="$store.dispatch('deleteItem', {rootIndex: rootIndex , uuid: item.uuid })"></i></td>
                 </tr>
                 <!-- render only if the record has childs -->
                 <tr :id="'collapse'+item.uuid" class="accordion-collapse collapse" v-bind:class="{ 'show': collapse[item.uuid] }" v-if="!checkEmpty(item.kids) && loadKids[item.uuid]">
@@ -35,6 +35,7 @@
                             :key="'RT-'+item.uuid+'_'+indexK"
                             :node="record"
                             :title="keyK"
+                            :rootIndex="rootIndex"
                         />
                     </td>
                 </tr>
@@ -55,6 +56,9 @@
             },
             title: {
                 type: String
+            },
+            rootIndex: {
+                type: Number
             }
         },
         computed: {
